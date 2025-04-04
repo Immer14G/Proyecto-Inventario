@@ -1,0 +1,23 @@
+﻿@model miPrimerProyecto.Models.Inventario
+
+<h2>Editar Inventario</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="ProductoId" class="control-label"></label>
+        <select asp-for="ProductoId" class="form-control" asp-items="ViewBag.ProductoId"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Cantidad" class="control-label"></label>
+        <input asp-for="Cantidad" class="form-control" />
+        <span asp-validation-for="Cantidad" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>

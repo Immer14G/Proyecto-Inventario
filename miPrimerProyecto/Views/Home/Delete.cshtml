@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Delete";
+}
+
+@model miPrimerProyecto.Models.Producto
+
+<h1>Eliminar producto</h1>
+
+<h3>¿Estás seguro que deseas eliminar este producto?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Nombre:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt class="col-sm-2">
+            Precio:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+    </form>
+</div>
