@@ -15,34 +15,34 @@ namespace miPrimerProyecto.Controllers
             _context = context;
         }
 
-        // Mostrar inventario
+        
         public async Task<IActionResult> Index()
         {
             var inventario = await _context.Inventarios
-                .Include(p => p.Producto)  // Aseguramos que se incluya la relación con Producto
+                .Include(p => p.Producto)  
                 .ToListAsync();
             return View(inventario);
         }
 
-        // Cargar lista de productos para el dropdown
+     
         public void CargarListasDesplegables()
         {
             ViewData["ProductoId"] = new SelectList(_context.productos, "Id", "Nombre");
         }
 
 
-        // Vista para crear nuevo inventario
+        
         public IActionResult Create()
         {
             CargarListasDesplegables();
             return View();
         }
 
-        // Acción POST para crear inventario
+        
         [HttpPost]
         public async Task<IActionResult> Create(string cantidad, int ProductoId)
         {
-            // Validamos si la cantidad es válida
+           
             if (string.IsNullOrEmpty(cantidad) || !int.TryParse(cantidad, out int cantidadInt))
             {
                 CargarListasDesplegables();
@@ -50,10 +50,10 @@ namespace miPrimerProyecto.Controllers
                 return View();
             }
 
-            // Creamos el nuevo inventario
+         
             var inventario = new Inventario
             {
-                Cantidad = cantidadInt,  // Asignamos la cantidad convertida
+                Cantidad = cantidadInt,  
                 ProductoId = ProductoId,
             };
 
@@ -63,7 +63,7 @@ namespace miPrimerProyecto.Controllers
             return RedirectToAction("Index");
         }
 
-        // Eliminar inventario
+      
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -72,7 +72,7 @@ namespace miPrimerProyecto.Controllers
             }
 
             var inventario = await _context.Inventarios
-                .Include(p => p.Producto)  // Incluimos los detalles del Producto
+                .Include(p => p.Producto)  
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (inventario == null)
@@ -101,7 +101,7 @@ namespace miPrimerProyecto.Controllers
             return _context.Inventarios.Any(p => p.Id == id);
         }
 
-        // Editar inventario
+     
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -130,7 +130,7 @@ namespace miPrimerProyecto.Controllers
                 return NotFound();
             }
 
-            // Actualizamos los valores del inventario
+         
             inventario.Cantidad = Cantidad;
             inventario.ProductoId = ProductoId;
 
@@ -155,13 +155,13 @@ namespace miPrimerProyecto.Controllers
             }
         }
 
-        // Vista de privacidad
+        
         public IActionResult Privacy()
         {
             return View();
         }
 
-        // Manejo de errores
+      
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
